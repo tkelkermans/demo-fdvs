@@ -1,0 +1,12 @@
+apiVersion: snapshot.storage.k8s.io/v1beta1
+kind: VolumeSnapshotClass
+metadata:
+  name: acs-abs-snapshot-class
+  annotations: 
+    k10.kasten.io/is-snapshot-class: "true"
+driver: csi.nutanix.com
+parameters:
+  storageType: NutanixVolumes
+  csi.storage.k8s.io/snapshotter-secret-name: ntnx-secret-0005e9ca-eee3-6325-3577-ac1f6b3f92c5 # to change for each new cluster
+  csi.storage.k8s.io/snapshotter-secret-namespace: kube-system
+deletionPolicy: Delete

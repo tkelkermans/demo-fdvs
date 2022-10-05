@@ -1,7 +1,5 @@
 # NKE DEMO
 
-## Upgrade Kubernetes
-1. 
 
 ## Scale-Out Node Pools
 1. Go to Prism Central
@@ -11,7 +9,7 @@
 5. Select 4 
 
 ## Use Karbon extension to Login using PC
-1. On the Mac :
+1. On the Jumphost :
    ```bash
    kubectl karbon login --server phx-poc002.ntnx.fr -u admin --force
    kubectl karbon list --server phx-poc002.ntnx.fr -u admin
@@ -19,15 +17,11 @@
 
 
 ## NKE Interface YAML
-1. Connect to the Prism Central VM using SSH
-   ```bash
-   ssh nutanix@phx-poc002.ntnx.fr
-   ```
-2. From the Prism Central VM, use the karbonctl command to enable advanced Kubernetes management.
-   ```bash
-    /home/nutanix/karbon/karbonctl login --pc-username admin
-    /home/nutanix/karbon/karbonctl karbon-management enable --cluster-name nke-02
-    ```
+1. Connect to Prism Central using http://phx-poc002.ntnx.fr
+2. Go to Service > Kubernetes > Clusters > demo-nke-dev01
+3. Namespace > Select a Namespace (ntnx-system)
+4. Click on Workloads and 
+
 
 ## CSI : Files/Volumes
 
@@ -46,6 +40,17 @@ Go to persistent volume, and create a volume with:
 ```
 
 After a couple of second, the volume should be seen as Bound
+
+## Database provisioning
+Show the databases already deployed
+```bash
+kubectl get dbs
+```
+Deploy a new database
+```bash
+kubectl apply -f ~/demo-fdvs/ndb.yaml
+kubectl get dbs -w
+```
 
 ## Kasten
 1. Use nke-01 context
@@ -82,3 +87,6 @@ After a couple of second, the volume should be seen as Bound
    ```k10```
 8. Go to Policy and create a backup policy
 9. Create K10 DR
+
+## Upgrade Kubernetes
+1. Go to prism Central to upgrade nke-02
